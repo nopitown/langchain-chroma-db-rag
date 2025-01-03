@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  chroma:
+    image: chromadb/chroma:latest
+    environment:
+      - ALLOW_RESET=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+
+  chroma-ui:
+    image: fengzhichao/chromadb-admin:latest
+    environment:
+      - NEXT_PUBLIC_CHROMA_SERVER_URL=http://chroma:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - chroma
+
+volumes:
+  chroma_data:
+    driver: local 

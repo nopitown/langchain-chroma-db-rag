@@ -1,0 +1,22 @@
+{
+    "name": "eli-manrique-rag",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "tsx src/index.ts",
+        "build": "tsc",
+        "scrape": "tsx src/scraper.ts",
+        "ingest": "tsx src/ingest.ts"
+    },
+    "dependencies": {
+        "@langchain/community": "^0.3.22",
+        "@langchain/openai": "^0.0.14",
+        "cheerio": "^1.0.0-rc.12",
+        "chromadb": "^1.10.0",
+        "dotenv": "^16.4.5",
+        "langchain": "^0.3.9",
+        "node-fetch": "^3.3.2",
+        "tsx": "^4.7.1",
+        "typescript": "^5.3.3"
+    }
+}
