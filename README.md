@@ -12,7 +12,7 @@ My playground project for learning how to use LangChain with ChromaDB. This is m
 ## If You Want to Try It 🛠️
 
 You'll need:
-- Node.js (v18+)
+- Node.js (v20.3.0+)
 - Docker + Docker Compose
 - Some TypeScript knowledge
 
@@ -39,6 +39,8 @@ cp .env.example .env
 ```bash
 docker-compose up -d
 ```
+
+You can view and explore your vector database at http://localhost:8000
 
 ## Running Things 🏃‍♂️
 

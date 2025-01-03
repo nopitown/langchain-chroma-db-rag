@@ -61,8 +61,8 @@ async function main() {
     console.log(`Processing ${documents.length} chunks...`);
 
     // Generate embeddings for all documents at once
-    const embeddings_array = await Promise.all(
-      documents.map(doc => embeddings.embedQuery(doc.pageContent))
+    const embeddings_array = await embeddings.embedDocuments(
+      documents.map(doc => doc.pageContent)
     );
 
     // Add all documents to collection in one batch
