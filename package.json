@@ -1,5 +1,5 @@
 {
-    "name": "eli-manrique-rag",
+    "name": "langchain-chroma-rag",
     "version": "1.0.0",
     "type": "module",
     "scripts": {

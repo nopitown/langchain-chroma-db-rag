@@ -47,9 +47,9 @@ Note: There is no auth, but can be changed if you set the proper configuration h
 
 ## Running Things 🏃‍♂️
 
-Build it:
+Scrape the website:
 ```bash
-npm run build
+npm run scrape
 ```
 
 Ingest some docs:
@@ -59,7 +59,7 @@ npm run ingest
 
 Run it:
 ```bash
-npm start
+npm run start
 ```
 
 ## Project Structure
@@ -95,3 +95,5 @@ Remember to:
 3. Ensure your Node.js version matches the project requirements
 
 
+##Demo
+![](./src/demo.png)
