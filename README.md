@@ -85,8 +85,8 @@ The easiest way to deploy ChromaDB is using [Railway's Chroma template](https://
 
 ### Node.js Application
 For the Node.js application, you can deploy to:
-- Heroku: Great for production use
-- Vercel: Perfect for testing (free tier available)
+- Heroku
+- Vercel
 - Any other Node.js hosting platform
 
 Remember to:
