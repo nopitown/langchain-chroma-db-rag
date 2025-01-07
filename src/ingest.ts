@@ -1,4 +1,4 @@
-import { ChromaClient } from 'chromadb';
+import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb';
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { Document } from '@langchain/core/documents';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
@@ -8,8 +8,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-if (!process.env.CHROMA_URL) {
-  throw new Error('CHROMA_URL environment variable is not set');
+if (!process.env.CHROMA_DB_URL) {
+  throw new Error('CHROMA_DB_URL environment variable is not set');
 }
 
 async function loadDocuments(): Promise<Document[]> {
@@ -46,14 +46,28 @@ async function loadDocuments(): Promise<Document[]> {
 
 async function main() {
   try {
-    const client = new ChromaClient({ path: process.env.CHROMA_URL });
+    const client = new ChromaClient({ path: process.env.CHROMA_DB_URL });
     const embeddings = new OpenAIEmbeddings();
-    await client.deleteCollection({ name: "eli_manrique_info" });
+    const embeddingFunction = new OpenAIEmbeddingFunction({
+      openai_api_key: process.env.OPENAI_API_KEY || "",
+    });
+
+    // Remove existing collection if it exists
+    try {
+      const existingCollection = await client.getCollection({ name: "documents", embeddingFunction});
+
+      if (existingCollection) {
+        await existingCollection.delete();
+      }
+    } catch (error) {
+      console.log("Collection does not exist, creating new one");
+    }
+
     
     // Create or get collection
     const collection = await client.getOrCreateCollection({
-      name: "eli_manrique_info",
-      metadata: { description: "Information about Eli Manrique from nopitown.com" }
+      name: "documents",
+      metadata: { description: `Information about Foo developer from ${process.env.WEB_URL}` }
     });
 
     const documents = await loadDocuments();

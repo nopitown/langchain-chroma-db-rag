@@ -1,6 +1,8 @@
 # LangChain + ChromaDB Experiment
 
-My playground project for learning how to use LangChain with ChromaDB. This is mainly for educational purposes and experimenting with vector databases.
+This project demonstrates how to build a Q&A system that can answer questions based on the content of someone's personal website. It uses LangChain for document processing and ChromaDB as a vector store to enable semantic search and retrieval.
+
+You can configure which website to scrape and analyze by setting the `WEB_URL` environment variable. By default, it's set to my personal website, but you can change it to any website you want to analyze.
 
 ## What's Inside 🔍
 
@@ -41,6 +43,7 @@ docker-compose up -d
 ```
 
 You can view and explore your vector database at http://localhost:8000
+Note: There is no auth, but can be changed if you set the proper configuration https://docs.trychroma.com/production/administration/auth
 
 ## Running Things 🏃‍♂️
 
@@ -72,3 +75,23 @@ npm start
 ```
 
 Feel free to mess around with the code and learn from it! 🧪 
+
+## Deployment 🚀
+
+You have several options to deploy this project:
+
+### ChromaDB Instance
+The easiest way to deploy ChromaDB is using [Railway's Chroma template](https://railway.com/template/tifygm).
+
+### Node.js Application
+For the Node.js application, you can deploy to:
+- Heroku: Great for production use
+- Vercel: Perfect for testing (free tier available)
+- Any other Node.js hosting platform
+
+Remember to:
+1. Set up your environment variables
+2. Configure the ChromaDB connection URL
+3. Ensure your Node.js version matches the project requirements
+
+

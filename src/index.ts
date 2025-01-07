@@ -1,4 +1,4 @@
-import { ChromaClient } from 'chromadb';
+import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb';
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { ChatOpenAI } from '@langchain/openai';
 import dotenv from 'dotenv';
@@ -6,13 +6,18 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 async function queryRAG(question: string) {
-  const client = new ChromaClient({ path: 'http://localhost:8000' });
+  const client = new ChromaClient({ path: process.env.CHROMA_DB_URL || ""});
   const embeddings = new OpenAIEmbeddings();
   const model = new ChatOpenAI({ modelName: 'gpt-4' });
 
+  const embeddingFunction = new OpenAIEmbeddingFunction({
+    openai_api_key: process.env.OPENAI_API_KEY || "",
+  });
+
   // Get collection
   const collection = await client.getCollection({
-    name: "eli_manrique_info"
+    name: "documents",
+    embeddingFunction,
   });
 
   // Generate embedding for the question
@@ -45,7 +50,9 @@ async function queryRAG(question: string) {
 // Example usage
 async function main() {
   try {
-    const answer = await queryRAG("What did Eli Manrique do in Able.co?");
+    // Replace with your question
+    const question = "What did Eli Manrique do in Able.co?";
+    const answer = await queryRAG(question);
     
     console.log("\n"+'Answer:', answer);
   } catch (error) {

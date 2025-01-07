@@ -2,7 +2,9 @@ import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 import fs from 'fs/promises';
 import path from 'path';
+import dotenv from 'dotenv';
 
+dotenv.config();
 async function scrapeWebsite(url: string): Promise<string[]> {
   const response = await fetch(url);
   const html = await response.text();
@@ -26,7 +28,7 @@ async function scrapeWebsite(url: string): Promise<string[]> {
 
 async function main() {
   try {
-    const url = 'https://nopitown.com/';
+    const url = process.env.WEB_URL || '';
     const content = await scrapeWebsite(url);
     
     // Create data directory if it doesn't exist
