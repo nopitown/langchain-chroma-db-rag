@@ -20,12 +20,6 @@ async function loadDocuments(): Promise<Document[]> {
     )
   );
 
-  // Create text splitter instance
-  const textSplitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 500,
-    chunkOverlap: 50,
-  });
-
   // Convert content to Documents first
   const docs = content.map((text: string, index: number) => {
     return new Document({
@@ -33,6 +27,12 @@ async function loadDocuments(): Promise<Document[]> {
       metadata: { source: 'nopitown.com', id: `doc-${index}` }
     });
   });
+
+    // Create text splitter instance
+    const textSplitter = new RecursiveCharacterTextSplitter({
+      chunkSize: 500,
+      chunkOverlap: 50,
+    });
 
   // Split documents into chunks
   const splitDocs = await textSplitter.splitDocuments(docs);
@@ -57,7 +57,8 @@ async function main() {
       const existingCollection = await client.getCollection({ name: "documents", embeddingFunction});
 
       if (existingCollection) {
-        await existingCollection.delete();
+        await client.deleteCollection({ name: "documents" });
+        console.log("Existing collection deleted");
       }
     } catch (error) {
       console.log("Collection does not exist, creating new one");
